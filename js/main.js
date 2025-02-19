@@ -1,9 +1,13 @@
 // API Configuration
 const API_BASE_URL = (() => {
-    if (window.location.hostname === 'sverigenyheter.github.io') {
+    const hostname = window.location.hostname;
+    
+    if (hostname === 'sverigenyheter.github.io') {
+        return 'https://cc8b5d48-319b-4931-8f09-ddb25902a5aa-00-2198jv68fg2ov.spock.replit.dev/api';
+    } else if (hostname === 'f9c71d56-7677-49da-8cbd-6403ca28eeda-00-1v7jl4knskmsv.picard.replit.dev') {
         return 'https://cc8b5d48-319b-4931-8f09-ddb25902a5aa-00-2198jv68fg2ov.spock.replit.dev/api';
     }
-    return `${window.location.protocol}//${window.location.hostname.replace(':8080', ':3000')}/api`;
+    return `${window.location.protocol}//${hostname.replace(':8080', ':3000')}/api`;
 })();
 
 // Log the API URL for debugging
@@ -17,16 +21,16 @@ let activeCategory = null;
 const categories = [
     { name: 'Alla', emoji: '📰' },
     { name: 'Politik', emoji: '🏛️' },
-    { name: 'Världsnyheter', emoji: '🌍' },
-    { name: 'Ekonomi & Näringsliv', emoji: '📈' },
+    { name: 'Världen', emoji: '🌍' },
+    { name: 'Ekonomi', emoji: '📈' },
     { name: 'Teknik', emoji: '💻' },
     { name: 'Hälsa', emoji: '🏥' },
     { name: 'Sport', emoji: '⚽' },
     { name: 'Underhållning', emoji: '🎬' },
     { name: 'Vetenskap', emoji: '🔬' },
     { name: 'Brott & Rätt', emoji: '⚖️' },
-    { name: 'Miljö & Klimat', emoji: '🌱' },
-    { name: 'Livsstil & Kultur', emoji: '🏡' }
+    { name: 'Miljö', emoji: '🌱' },
+    { name: 'Livsstil', emoji: '🏡' }
 ];
 
 // Create category buttons
@@ -38,7 +42,7 @@ function createCategoryButtons() {
         const button = document.createElement('button');
         button.className = 'category-button';
         button.setAttribute('data-category', category.name);
-        button.innerHTML = `${category.emoji} ${category.name}`;
+        button.innerHTML = `<span class="emoji">${category.emoji}</span> ${category.name}`;
         
         button.addEventListener('click', () => {
             // Remove active class from all buttons
