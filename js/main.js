@@ -18,7 +18,7 @@ document.addEventListener('DOMContentLoaded', () => {
         }
         const systemPrefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
         console.log('System prefers dark:', systemPrefersDark);
-        return systemPrefersDark ? 'dark' : 'light';
+        return systemPrefersDark || !window.matchMedia('(prefers-color-scheme: light)').matches ? 'dark' : 'light';
     };
 
     // Apply theme
