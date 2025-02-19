@@ -1,8 +1,7 @@
 // API Configuration
-const API_BASE_URL = window.location.hostname.includes('replit.dev') 
-    ? `${window.location.protocol}//${window.location.hostname.replace(':8080', ':3000')}/api`  // Replit environment
-    : 'http://localhost:3000/api';  // Local development
+const API_BASE_URL = 'https://cc8b5d48-319b-4931-8f09-ddb25902a5aa-00-2198jv68fg2ov.spock.replit.dev/api';
 
+// Log the API URL for debugging
 console.log('Using API URL:', API_BASE_URL);
 
 // Store all news stories globally
@@ -235,16 +234,21 @@ async function fetchNews() {
         const response = await fetch(`${API_BASE_URL}/news/enhanced`, {
             method: 'GET',
             headers: {
-                'Accept': 'application/json'
+                'Accept': 'application/json',
+                'Content-Type': 'application/json'
             },
             mode: 'cors'
         });
+
+        console.log('Response status:', response.status);
+        console.log('Response headers:', [...response.headers.entries()]);
 
         if (!response.ok) {
             throw new Error(`Failed to fetch news: ${response.status} ${response.statusText}`);
         }
 
         const responseData = await response.json();
+        console.log('Response data:', responseData);
         
         if (responseData.status !== 'success') {
             throw new Error(responseData.error?.message || 'Unknown error occurred');
