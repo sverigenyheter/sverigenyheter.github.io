@@ -1,3 +1,91 @@
+// Theme Management
+document.addEventListener('DOMContentLoaded', () => {
+    const themeToggle = document.querySelector('.theme-toggle');
+    const sunIcon = document.querySelector('.sun-icon');
+    const moonIcon = document.querySelector('.moon-icon');
+
+    if (!themeToggle || !sunIcon || !moonIcon) {
+        console.error('Theme toggle elements not found!');
+        return;
+    }
+
+    // Check for saved theme preference, otherwise use system preference
+    const getPreferredTheme = () => {
+        const savedTheme = localStorage.getItem('theme');
+        console.log('Saved theme:', savedTheme);
+        if (savedTheme) {
+            return savedTheme;
+        }
+        const systemPrefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+        console.log('System prefers dark:', systemPrefersDark);
+        return systemPrefersDark ? 'dark' : 'light';
+    };
+
+    // Apply theme
+    const applyTheme = (theme) => {
+        console.log('Applying theme:', theme);
+        const html = document.documentElement;
+        console.log('Current HTML data-theme:', html.getAttribute('data-theme'));
+        html.setAttribute('data-theme', theme);
+        console.log('New HTML data-theme:', html.getAttribute('data-theme'));
+        localStorage.setItem('theme', theme);
+        
+        // Reset icon styles first
+        sunIcon.style.display = 'none';
+        moonIcon.style.display = 'none';
+        sunIcon.style.opacity = '1';
+        moonIcon.style.opacity = '1';
+        
+        // Update button icons based on theme
+        if (theme === 'dark') {
+            moonIcon.style.display = 'block';
+        } else if (theme === 'light') {
+            sunIcon.style.display = 'block';
+        } else if (theme === 'twilight') {
+            sunIcon.style.display = 'block';
+            moonIcon.style.display = 'block';
+            sunIcon.style.opacity = '0.5';
+            moonIcon.style.opacity = '0.5';
+        }
+        
+        // Force a repaint
+        const body = document.body;
+        const display = body.style.display;
+        body.style.display = 'none';
+        body.offsetHeight;
+        body.style.display = display;
+        
+        // Log computed styles to verify changes
+        const computedStyle = getComputedStyle(document.documentElement);
+        console.log('Background color:', computedStyle.getPropertyValue('--background-color'));
+        console.log('Text color:', computedStyle.getPropertyValue('--primary-color'));
+    };
+
+    // Initialize theme
+    applyTheme(getPreferredTheme());
+
+    // Handle theme toggle click
+    themeToggle.addEventListener('click', () => {
+        console.log('Theme toggle clicked');
+        const currentTheme = document.documentElement.getAttribute('data-theme') || 'light';
+        console.log('Current theme:', currentTheme);
+        
+        // Cycle through themes: light -> twilight -> dark -> light
+        const newTheme = currentTheme === 'light' ? 'twilight' : 
+                        currentTheme === 'twilight' ? 'dark' : 'light';
+        
+        console.log('New theme:', newTheme);
+        applyTheme(newTheme);
+    });
+
+    // Listen for system theme changes
+    window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', (e) => {
+        if (!localStorage.getItem('theme')) {  // Only update if user hasn't manually set theme
+            applyTheme(e.matches ? 'dark' : 'light');
+        }
+    });
+});
+
 // API Configuration
 const API_BASE_URL = (() => {
     const hostname = window.location.hostname;
