@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="sv">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Svenska Nyheter</title>
+    
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600&family=Playfair+Display:wght@700&display=swap" rel="stylesheet">
+    
+    <!-- Styles -->
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <header class="site-header">
+        <div class="header-content">
+            <h1>Svenska Nyheter</h1>
+            <div class="current-time"></div>
+        </div>
+        <div class="category-filters"></div>
+    </header>
+
+    <main>
+        <div class="loading-spinner">
+            <div class="spinner"></div>
+            <p>Laddar nyheter...</p>
+        </div>
+
+        <div class="news-grid">
+            <!-- News cards will be inserted here -->
+        </div>
+    </main>
+
+    <footer>
+        <p>&copy; 2024 Svenska Nyheter. Alla rättigheter förbehållna.</p>
+    </footer>
+
+    <!-- News Article Template -->
+    <template id="newsTemplate">
+        <article class="news-card">
+            <div class="news-content">
+                <div class="news-meta">
+                    <span class="source"></span>
+                    <span class="published-at"></span>
+                </div>
+                <h2 class="title"></h2>
+                <div class="ingress"></div>
+                <div class="quick-facts">
+                    <h3>Snabbfakta</h3>
+                    <ul>
+                        <li class="what"></li>
+                        <li class="when"></li>
+                        <li class="where"></li>
+                        <li class="who"></li>
+                        <li class="why"></li>
+                    </ul>
+                </div>
+                <div class="main-text"></div>
+                <div class="sources">
+                    <h3>Källor</h3>
+                    <ul></ul>
+                </div>
+            </div>
+        </article>
+    </template>
+
+    <!-- Scripts -->
+    <script src="js/main.js"></script>
+</body>
+</html> 
