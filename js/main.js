@@ -1,5 +1,10 @@
 // API Configuration
-const API_BASE_URL = 'https://cc8b5d48-319b-4931-8f09-ddb25902a5aa-00-2198jv68fg2ov.spock.replit.dev/api';
+const API_BASE_URL = (() => {
+    if (window.location.hostname === 'sverigenyheter.github.io') {
+        return 'https://cc8b5d48-319b-4931-8f09-ddb25902a5aa-00-2198jv68fg2ov.spock.replit.dev/api';
+    }
+    return `${window.location.protocol}//${window.location.hostname.replace(':8080', ':3000')}/api`;
+})();
 
 // Log the API URL for debugging
 console.log('Using API URL:', API_BASE_URL);
