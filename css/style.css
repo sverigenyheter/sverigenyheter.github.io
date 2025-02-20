@@ -13,7 +13,7 @@
     --accent-color: #5ca0e0;
     --background-color: #121214;
     --card-background: #18181c;
-    --card-background-alt: #242430; /* Much more visible alternate background */
+    --card-background-alt: #2a2a35; /* Much stronger contrast for dark mode */
     --border-color: #28282c;
     --separator-color: #454555; /* Darker, more visible separator */
     --button-hover: #4d94d6;
@@ -39,7 +39,7 @@
         --accent-color: #0066aa;
         --background-color: #fffaf5;
         --card-background: #fff8f2;
-        --card-background-alt: #ffe8d9;
+        --card-background-alt: #ffe0cc; /* Much stronger contrast for light mode */
         --border-color: #e6e0d9;
         --separator-color: #c0c0c0;
         --button-hover: #005694;
@@ -56,7 +56,7 @@ html[data-theme="light"] {
     --accent-color: #0066aa;
     --background-color: #fffaf5;
     --card-background: #fff8f2;
-    --card-background-alt: #ffe8d9;
+    --card-background-alt: #ffe0cc; /* Much stronger contrast for light mode */
     --border-color: #e6e0d9;
     --separator-color: #c0c0c0;
     --button-hover: #005694;
@@ -72,7 +72,7 @@ html[data-theme="twilight"] {
     --accent-color: #a594e0;
     --background-color: #252532;
     --card-background: #2d2d3a;
-    --card-background-alt: #363648;
+    --card-background-alt: #3d3d52; /* Much stronger contrast for twilight mode */
     --border-color: #363645;
     --button-hover: #9485cc;
     --button-active: #8375b8;
@@ -87,7 +87,7 @@ html[data-theme="dark"] {
     --accent-color: #5ca0e0;
     --background-color: #121214;
     --card-background: #18181c;
-    --card-background-alt: #242430;
+    --card-background-alt: #2a2a35; /* Much stronger contrast for dark mode */
     --border-color: #28282c;
     --button-hover: #4d94d6;
     --button-active: #3d7ab3;
@@ -103,7 +103,7 @@ html[data-theme="dark"] {
         --accent-color: #5ca0e0;
         --background-color: #121214;
         --card-background: #18181c;
-        --card-background-alt: #242430;
+        --card-background-alt: #2a2a35; /* Much stronger contrast for dark mode */
         --border-color: #28282c;
         --button-hover: #4d94d6;
         --button-active: #3d7ab3;
@@ -280,17 +280,34 @@ main {
         gap: 0;
     }
 
+    .news-content {
+        padding: 0.25rem 0.5rem; /* Reduced side padding from 0.75rem to 0.5rem */
+        width: 100%;
+    }
+
     .news-card {
         margin: 0;
         border-radius: 0;
         box-shadow: none;
         border-bottom: 4px solid var(--separator-color);
         padding-bottom: 0;
+        width: 100%; /* Ensure full width */
     }
 
-    .news-content {
-        padding: 0.25rem 0.75rem;
-        border-left: none; /* Remove the left border */
+    .news-card.expanded .news-content {
+        padding: 0.4rem 0.5rem; /* Match the reduced padding */
+    }
+
+    /* News Container */
+    .news-grid {
+        width: 100%; /* Full width on mobile */
+        max-width: none; /* Remove max-width constraint */
+        margin: 0; /* Remove margins */
+    }
+
+    main {
+        padding: 0; /* Remove main padding on mobile */
+        width: 100%; /* Full width */
     }
 
     .news-card .title,
@@ -314,8 +331,16 @@ main {
     }
 }
 
-/* Extra small devices */
+/* Extra small devices - ensure full width */
 @media (max-width: 375px) {
+    .news-content {
+        padding: 0.25rem 0.5rem; /* Consistent padding */
+    }
+
+    .news-card.expanded .news-content {
+        padding: 0.4rem 0.5rem;
+    }
+
     .news-card .title,
     .news-card.expanded .title {
         font-size: 1rem !important;
@@ -747,8 +772,8 @@ button,
 .category-filters {
     display: flex;
     flex-wrap: wrap;
-    gap: 0.5rem;
-    padding: 0.5rem 1rem;
+    gap: 0.15rem; /* Further reduced from 0.25rem */
+    padding: 0.5rem 0.5rem; /* Reduced horizontal padding */
     justify-content: center;
     max-width: 100%;
     overflow-x: auto;
@@ -765,7 +790,7 @@ button,
 
 .category-button {
     font-size: 0.9rem;
-    padding: 0.5rem 0.8rem;
+    padding: 0.5rem 0.6rem; /* Reduced horizontal padding */
     border: 1px solid var(--border-color);
     border-radius: 20px;
     background: var(--background-color);
@@ -773,7 +798,7 @@ button,
     cursor: pointer;
     white-space: nowrap;
     transition: all 0.2s ease;
-    min-height: unset; /* Override the default 44px */
+    min-height: unset;
 }
 
 .category-button.active {
@@ -785,8 +810,8 @@ button,
 /* Mobile Optimizations for Categories */
 @media (max-width: 768px) {
     .category-filters {
-        padding: 0.5rem 1.5rem;
-        gap: 0.5rem;
+        padding: 0.5rem 0.75rem;
+        gap: 0.15rem; /* Further reduced from 0.25rem */
         justify-content: flex-start;
         flex-wrap: nowrap;
         margin: 0;
@@ -800,14 +825,14 @@ button,
 
     .category-button {
         font-size: 0.8rem;
-        padding: 0.4rem 0.8rem;
+        padding: 0.4rem 0.6rem; /* Reduced horizontal padding */
         white-space: nowrap;
         flex-shrink: 0;
-        margin-right: 0.25rem;
+        margin-right: 0.15rem; /* Reduced from 0.25rem */
     }
 
     .category-button:last-child {
-        margin-right: 1.5rem;
+        margin-right: 1rem; /* Reduced from 1.5rem */
     }
 }
 
